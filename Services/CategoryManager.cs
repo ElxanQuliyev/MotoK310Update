@@ -1,6 +1,11 @@
 ﻿using DataAccess;
 using Entities;
-
+using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace Services
 {
@@ -12,31 +17,9 @@ namespace Services
         {
             _context = context;
         }
-        public List<Category> GetAll()
+        public async Task<List<Category>> GetAllAsync()
         {
-            return _context.Categories.ToList();
-        }
-        public Category? GetById(int? id)
-        {
-            return _context.Categories.Find(id);
-        }
-
-        public void AddCategory(Category category)
-        {
-            _context.Categories.Add(category);
-            _context.SaveChanges();
-        }
-
-        public void UpdateCategory(Category category)
-        {
-            _context.Categories.Update(category);
-            _context.SaveChanges();
-        }
-
-        public void RemoveCategory(Category category)
-        {
-            _context.Categories.Remove(category);
-            _context.SaveChanges();
+            return await _context.Categories.ToListAsync();
         }
     }
 }

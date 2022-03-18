@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Entities.Category>
+﻿@model IEnumerable<Entities.Movie>
 
 @{
     ViewData["Title"] = "Index";
@@ -19,7 +19,13 @@
                 @Html.DisplayNameFor(model => model.Description)
             </th>
             <th>
+                @Html.DisplayNameFor(model => model.Imdb)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.PhotoUrl)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.VideoUrl)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Id)
@@ -37,7 +43,13 @@
                 @Html.DisplayFor(modelItem => item.Description)
             </td>
             <td>
+                @Html.DisplayFor(modelItem => item.Imdb)
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.PhotoUrl)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.VideoUrl)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Id)

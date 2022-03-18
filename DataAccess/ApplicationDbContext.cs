@@ -10,9 +10,9 @@ namespace DataAccess
             : base(options)
         {
         }
-        public DbSet<Product> Products { get; set; }
-        public DbSet<Category> Categories { get; set; }
-        public DbSet<Slider> Sliders { get; set; }
-        public DbSet<SaleProduct> SaleProducts { get; set; }
+
+        public DbSet<Category> Categories { get; set; } 
+        public  DbSet<Movie> Movies { get; set; }
+        public DbSet<MovieToCategory> MovieToCategories { get; set; }
     }
 }

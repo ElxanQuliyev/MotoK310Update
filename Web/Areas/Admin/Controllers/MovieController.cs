@@ -6,42 +6,48 @@ using Services;
 namespace Web.Areas.Admin.Controllers
 {
     [Area(nameof(Admin))]
-    public class CategoryController : Controller
+    public class MovieController : Controller
     {
+        
+        private readonly MovieManager _movieManager;
         private readonly CategoryManager _categoryManager;
 
-        public CategoryController(CategoryManager categoryManager)
+        public MovieController(MovieManager movieManager, CategoryManager categoryManager)
         {
+            _movieManager = movieManager;
             _categoryManager = categoryManager;
         }
 
-        // GET: CategoryController
-        public ActionResult Index()
+        // GET: MovieController
+        public async Task<ActionResult> IndexAsync()
         {
-            return View(_categoryManager.GetAll());
+            var movies = await _movieManager.GetAllAsync();
+            return View(movies);
         }
 
-        // GET: CategoryController/Details/5
+        // GET: MovieController/Details/5
         public ActionResult Details(int id)
         {
             return View();
         }
 
-        // GET: CategoryController/Create
-        public ActionResult Create()
+
+        
+        // GET: MovieController/Create
+        public async Task<ActionResult> CreateAsync()
         {
+            ViewBag.CategoryList = await _categoryManager.GetAllAsync();
             return View();
         }
 
-        // POST: CategoryController/Create
+        // POST: MovieController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Category category)
+        public ActionResult Create(IFormCollection collection)
         {
             try
             {
-                _categoryManager.AddCategory(category);
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(IndexAsync));
             }
             catch
             {
@@ -49,20 +55,20 @@ namespace Web.Areas.Admin.Controllers
             }
         }
 
-        // GET: CategoryController/Edit/5
+        // GET: MovieController/Edit/5
         public ActionResult Edit(int id)
         {
             return View();
         }
 
-        // POST: CategoryController/Edit/5
+        // POST: MovieController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(int id, IFormCollection collection)
         {
             try
             {
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(IndexAsync));
             }
             catch
             {
@@ -70,20 +76,20 @@ namespace Web.Areas.Admin.Controllers
             }
         }
 
-        // GET: CategoryController/Delete/5
+        // GET: MovieController/Delete/5
         public ActionResult Delete(int id)
         {
             return View();
         }
 
-        // POST: CategoryController/Delete/5
+        // POST: MovieController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int id, IFormCollection collection)
         {
             try
             {
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(IndexAsync));
             }
             catch
             {
