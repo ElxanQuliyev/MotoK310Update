@@ -19,7 +19,7 @@ namespace Web.Areas.Admin.Controllers
         }
 
         // GET: MovieController
-        public async Task<ActionResult> IndexAsync()
+        public async Task<ActionResult> Index()
         {
             var movies = await _movieManager.GetAllAsync();
             return View(movies);
@@ -43,14 +43,25 @@ namespace Web.Areas.Admin.Controllers
         // POST: MovieController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public async Task<ActionResult> Create(Movie movie,int[] categoryIds)
         {
             try
             {
-                return RedirectToAction(nameof(IndexAsync));
+
+                //All 
+                //Any
+                movie.MovieToCategories = new List<MovieToCategory>();
+
+                movie.MovieToCategories.AddRange(
+                    categoryIds.Select(c=>new MovieToCategory() {CategoryId=c,MovieId=movie.Id }).ToArray());
+
+                await _movieManager.Add(movie);
+                
+                return RedirectToAction(nameof(Index));
             }
             catch
             {
+                ViewBag.CategoryList = await _categoryManager.GetAllAsync();
                 return View();
             }
         }
@@ -68,7 +79,7 @@ namespace Web.Areas.Admin.Controllers
         {
             try
             {
-                return RedirectToAction(nameof(IndexAsync));
+                return RedirectToAction(nameof(Index));
             }
             catch
             {
@@ -89,7 +100,7 @@ namespace Web.Areas.Admin.Controllers
         {
             try
             {
-                return RedirectToAction(nameof(IndexAsync));
+                return RedirectToAction(nameof(Index));
             }
             catch
             {

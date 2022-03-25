@@ -18,7 +18,7 @@
                 <span asp-validation-for="Title" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <select name="" class="form-control" multiple>
+                <select name="categoryIds" class="selectpicker" id="categorySelect" multiple>
                     @foreach (var item in ViewBag.CategoryList as List<Category>)
                     {
                         <option value="@item.Id">@item.Name</option>
@@ -46,11 +46,6 @@
                 <span asp-validation-for="VideoUrl" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Id" class="control-label"></label>
-                <input asp-for="Id" class="form-control" />
-                <span asp-validation-for="Id" class="text-danger"></span>
-            </div>
-            <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
         </form>
@@ -63,4 +58,7 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+        $("#categorySelect").selectpicker()
+    </script>
 }

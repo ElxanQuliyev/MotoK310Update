@@ -16,7 +16,7 @@
                 @Html.DisplayNameFor(model => model.Title)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Description)
+                Categories
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Imdb)
@@ -40,7 +40,8 @@
                 @Html.DisplayFor(modelItem => item.Title)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Description)
+                 
+                @string.Join(",", item.MovieToCategories.Select(c=>c.Category.Name))
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Imdb)
